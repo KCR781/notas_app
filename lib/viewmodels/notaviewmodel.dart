@@ -13,16 +13,11 @@ class NotaViewModel extends ChangeNotifier {
 
   List<Nota> get notas => List.unmodifiable(_notas);
 
-  NotaViewModel() {
-    read();
-  }
-
   void create(Nota nota) {
     nota.id = Uuid().v4();
     _notas.add(nota);
-    // exemplo, para seminário:
-    // firebase.collection('notas').add(nota);
 
+    // EDITAR ESTE BLOCO PARA FIRESTORE, REAL TIME e SUPABASE
     http.post(
       Uri.parse(url),
       body: json.encode(nota.toJson()),
@@ -30,6 +25,7 @@ class NotaViewModel extends ChangeNotifier {
         "Content-Type": "application/json"
       }
     );
+    // EDITAR ESTE BLOCO PARA FIRESTORE, REAL TIME e SUPABASE
 
     notifyListeners();
   }
@@ -37,8 +33,10 @@ class NotaViewModel extends ChangeNotifier {
   void delete(String id) {
     _notas.removeWhere((e) => e.id == id);
     
+    // EDITAR ESTE BLOCO PARA FIRESTORE, REAL TIME e SUPABASE
     http.delete(Uri.parse("$url/$id")).then((_) {});
-    
+    // EDITAR ESTE BLOCO PARA FIRESTORE, REAL TIME e SUPABASE
+
     notifyListeners();
   }
 
@@ -51,6 +49,7 @@ class NotaViewModel extends ChangeNotifier {
     var _nota = notas.where((e) => e.id == nota.id).first;
     _nota.title = nota.title;
 
+    // EDITAR ESTE BLOCO PARA FIRESTORE, REAL TIME e SUPABASE
     http.put(
       Uri.parse("$url/${nota.id}"),
       body: json.encode(nota.toJson()),
@@ -58,16 +57,22 @@ class NotaViewModel extends ChangeNotifier {
         "Content-Type": "application/json"
       }
     );
+    // EDITAR ESTE BLOCO PARA FIRESTORE, REAL TIME e SUPABASE
 
     notifyListeners();
   }
 
   void read() {
-    http.get(Uri.parse(url)).then((response) {
+
+    // EDITAR ESTE BLOCO PARA FIRESTORE, REAL TIME e SUPABASE
+    http.get(Uri.parse(url))
+    .then((response) {
       var jsonList = json.decode(response.body) as List;
       _notas = jsonList.map((e) => Nota.fromJson(e)).toList();
-    }).whenComplete(() {
+    })
+    .whenComplete(() {
       notifyListeners();
     });
+    // EDITAR ESTE BLOCO PARA FIRESTORE, REAL TIME e SUPABASE
   }
 }
