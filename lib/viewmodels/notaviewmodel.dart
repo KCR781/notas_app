@@ -34,7 +34,7 @@ class NotaViewModel extends ChangeNotifier {
     _notas.removeWhere((e) => e.id == id);
     
     // EDITAR ESTE BLOCO PARA FIRESTORE, REAL TIME e SUPABASE
-    http.delete(Uri.parse("$url/$id")).then((_) {});
+    http.delete(Uri.parse("$url/id/$id"));
     // EDITAR ESTE BLOCO PARA FIRESTORE, REAL TIME e SUPABASE
 
     notifyListeners();
@@ -50,8 +50,9 @@ class NotaViewModel extends ChangeNotifier {
     _nota.title = nota.title;
 
     // EDITAR ESTE BLOCO PARA FIRESTORE, REAL TIME e SUPABASE
+    print("$url/id/${nota.id}");
     http.put(
-      Uri.parse("$url/${nota.id}"),
+      Uri.parse("$url/id/${nota.id}"),
       body: json.encode(nota.toJson()),
       headers: {
         "Content-Type": "application/json"
