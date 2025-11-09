@@ -1,0 +1,32 @@
+name: notas_app
+description: "Um aplicativo de notas usando Flutter Web e Firebase"
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: ^3.7.2
+  
+platforms:
+  web:
+
+dependencies:
+  flutter:
+    sdk: flutter
+  intl: any
+  provider: any
+  uuid: any
+  http: any
+  firebase_core: any
+  cloud_firestore: any
+  firebase_auth: any
+  flutter_dotenv: ^5.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - .env
