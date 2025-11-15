@@ -15,11 +15,11 @@ dependencies:
   intl: any
   provider: any
   uuid: any
-  http: any
-  firebase_core: any
-  cloud_firestore: any
-  firebase_auth: any
-  flutter_dotenv: ^5.1.0
+  http: any  
+  firebase_core: any # 
+  cloud_firestore: any # 
+  firebase_auth: any #
+  flutter_dotenv: ^5.1.0 # ignore, capricho
 
 dev_dependencies:
   flutter_test:
