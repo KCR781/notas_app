@@ -21,17 +21,27 @@ class _CreatePageState extends State<CreatePage> {
         title: Text("Nova Nota"),
         actions: [
           IconButton(
-            onPressed: () {
+            onPressed: () async {
               // Salvar num banco de dados local (em memória).
               var provider = Provider.of<NotaViewModel>(context, listen: false);
-              provider.create(Nota(
-                id: DateTime.now().toString(),
-                title: titleCtrl.text,
-                conteudo: conteudoCtrl.text,
-                timestamp: DateTime.now(),
-                userId: ''
-              ));
-              Navigator.pop(context);
+              try {
+                await provider.create(Nota(
+                  id: DateTime.now().toString(),
+                  title: titleCtrl.text,
+                  conteudo: conteudoCtrl.text,
+                  timestamp: DateTime.now(),
+                  userId: ''
+                ));
+                if (context.mounted) {
+                  Navigator.pop(context);
+                }
+              } catch (e) {
+                if (context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Erro ao criar nota: $e')),
+                  );
+                }
+              }
             },
             icon: Icon(Icons.save)
           )

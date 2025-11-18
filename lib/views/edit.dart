@@ -31,16 +31,26 @@ class _EditPageState extends State<EditPage> {
         title: Text("Edita Nota"),
         actions: [
           IconButton(
-            onPressed: () {
+            onPressed: () async {
               var provider = Provider.of<NotaViewModel>(context, listen: false);
-              provider.update(Nota(
-                id: nota.id,
-                title: titleCtrl.text,
-                conteudo: conteudoCtrl.text,
-                timestamp: DateTime.now(),
-                userId: nota.userId
-              ));
-              Navigator.pop(context);
+              try {
+                await provider.update(Nota(
+                  id: nota.id,
+                  title: titleCtrl.text,
+                  conteudo: conteudoCtrl.text,
+                  timestamp: DateTime.now(),
+                  userId: nota.userId
+                ));
+                if (context.mounted) {
+                  Navigator.pop(context);
+                }
+              } catch (e) {
+                if (context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Erro ao atualizar nota: $e')),
+                  );
+                }
+              }
             },
             icon: Icon(Icons.save)
           )

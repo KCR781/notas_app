@@ -154,6 +154,7 @@ class NotaViewModel extends ChangeNotifier {
   /// Para tempo real, use startListening() em vez deste método.
   /// 
   /// Segurança: regras Firestore determinam quais documentos são retornados.
+  /// future significa que é uma operação assíncrona que pode levar tempo.
   Future<void> read() async {
     try {
       // .get(): executa query e retorna QuerySnapshot (resultado imediato)
